@@ -32,3 +32,37 @@ myQueue.until(7)
 => 3
 What's the time complexity?
 */
+
+let Queue = function() {
+    this.limit = this.limit || Infinity;
+    this._store = {};
+    this._tail = 0;
+    this._head = 0;
+}
+Queue.prototype.enqueue = function(value) {
+    if (this.limit<this._tail){
+        return "Max capacity already reached. Remove element before adding a new one.";
+    }
+    this._store[this._tail] = value;
+    this._tail++;
+}
+Queue.prototype.dequeue = function() {
+    if(this._tail - this._head === 0) {
+        return null;
+    }
+    let firstNode = this._store[this._head];
+    delete this._store[this._head];
+    this._head++;
+    return firstNode;
+}
+Queue.prototype.peek = function() {
+    return this._store[this._head];
+}
+Queue.prototype.count = function() {
+    return this._tail-this._head;
+}
+Queue.prototype.contains = function(value) {
+for(i=this._head; i<this._tail; i++) {
+    (this._store[i] === value) ? true : false;
+}
+}
